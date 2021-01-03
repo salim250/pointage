@@ -1,0 +1,76 @@
+﻿@using System.Data
+@using System.Data.SqlClient
+@model System.Data.DataTable
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Gestion Utilisateurs</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/bootstrap")
+    <link href="~/Content/gif1.css" rel="stylesheet" />
+
+</head>
+<body>
+    @Html.Partial("SideBar")
+
+    <form method="post" name="Display">
+        <h2>Home</h2>
+        @Html.ActionLink("Add New User", "create")
+        <br />
+        @{
+            if (Model.Rows.Count > 0)
+            {
+                <table class="table alert-link" border="0">
+                    <thead class="light-mode">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">username</th>
+                                    <th scope="col">Password</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Last_Name</th>
+                                    <th scope="col">RoleID</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+
+                                </tr>
+                    </thead>
+                    @foreach (DataRow dr in Model.Rows)
+                    {
+                        <tr>
+                            <td>@dr["id"].ToString()  </td>
+                            <td>@dr["username"].ToString()  </td>
+                            <td>@dr["Password"].ToString()  </td>
+                            <td>@dr["Name"].ToString()  </td>
+                            <td>@dr["Last_Name"].ToString()  </td>
+                            <td>@dr["RoleId"].ToString()  </td>
+                            <td>@Html.ActionLink("Edit ", "Edit", new { StudentID = dr["id"].ToString() }, new { @style = "color:#242424" })</td>
+                            <td>@Html.ActionLink("| Delete", "Delete", new { StudentID = dr["id"].ToString() }, new { onclick = "return confirm('Are sure wants to delete?');"})</td>
+                            <td>@Html.ActionLink("| Suivi Horaire", "afficherhoraire", new { username = dr["username"].ToString() })</td>
+                        </tr>
+
+                    }
+
+                </table>
+                <br />
+            }
+            else
+            {
+    <div style="width:10px;height:10px;">
+        <span> No records found!!</span>
+        <img src="~/images/feuille.gif"  />
+    </div>
+                
+            }
+        }
+        
+
+    </form>
+</body>
+</html>

@@ -1,0 +1,17 @@
+﻿
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li> @Html.ActionLink(" Gestion d'utilisateur", "Index", new { controller = "Gestion_Utilisateurs" }, new { @class = "fas fa-tasks" })</li>
+                <li>@Html.ActionLink(" Gestion de projet", "Index", new { controller = "GestionProjet" }, new { @class = "fas fa-users" })</li>
+                
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> @Html.ActionLink(" Logout", "Logout", new { controller = "Developper" }, new { @class = "fas fa-sign-out-alt" })</li>
+
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ErnstModelStoreContainer" CdmEntityContainer="ErnstEntities2">
+    <EntitySetMapping Name="temp">
+      <EntityTypeMapping TypeName="ErnstModel.temp">
+        <MappingFragment StoreEntitySet="temp">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="datepointage" ColumnName="datepointage" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="TacheId" ColumnName="TacheId" />
+          <ScalarProperty Name="datepointageoff" ColumnName="datepointageoff" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="gettemp" FunctionName="ErnstModel.Store.gettemp">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ErnstModel.gettemp_Result">
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="datepointage" ColumnName="datepointage" />
+          <ScalarProperty Name="datepointageoff" ColumnName="datepointageoff" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="getalltemp" FunctionName="ErnstModel.Store.gettemp" />
+  </EntityContainerMapping>
+</Mapping>

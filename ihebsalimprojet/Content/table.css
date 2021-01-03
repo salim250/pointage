@@ -1,0 +1,10 @@
+﻿form table 
+{
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+form table thead {
+    display: table-header-group;
+    height: 50%;
+    width: 50%;
+}

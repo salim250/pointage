@@ -1,0 +1,195 @@
+﻿@model ihebsalimprojet.Models.Developper
+@using ihebsalimprojet.Models
+
+
+<html>
+<head>
+    <title>Chronomètre</title>
+    @Styles.Render("~/Content/css")
+
+    @Scripts.Render("~/bundles/bootstrap")
+    <link href="~/Content/gif.css" rel="stylesheet" />
+    
+
+</head>
+
+<body >
+    @Html.Partial("SideBar")
+    
+
+    <div id="cc" class="w3ls-login">
+        <div align="center">
+            <h4 style="color:white" id="green">Chronomètre</h4>
+        </div>
+        <form action="" method="post" name="formu" id="formu">
+            <p align="center">
+                <input name="heure" type="text" id="heure" value="0 jour(s) et 00 : 00 : 00" style="color: white;font-weight: bold;height: auto;width: auto; background-color: transparent;">
+            </p>
+            <p align="center">
+                <input type="button" id="startStopBtn" name="action" value="Start" onclick="startStop();" class="btn btn-success">
+                <input type="button" name="Submit3" value="Reset" class="btn btn-info" onClick="if (confirm('Souhaitez vous mettre le compteur à zéro?')) { s = 0; m = 0; j = 0; h = 0; ss = 0; window.status = 'Chrono 0 jour(s) et 00 : 00 : 00'; document.formu.heure.value = '0 jour(s) et 00 : 00 : 00'; document.formu.heure.style.backgroundColor = 'transparent'; }">
+            </p>
+        </form>
+        <div style="color:blue" id="div">
+            @Html.Label("lblProject", "Project:")
+            @Html.DropDownList("Project", ViewData["ProjectList"] as List<SelectListItem>, "--selectProject--", new { @class = "btn btn-link btn-lg dropdown-toggle-split", @style = "background-color:transparent" })
+        </div>
+        <div style="color:blue" id="div1">
+            @Html.Label("lblTache", "Tache:")
+            @Html.DropDownList("Tache", new SelectList(string.Empty, "Value", "Text"), "--selectProject--", new { @class = "btn btn-link btn-lg dropdown-toggle-split", @style = "background-color:transparent" })
+        </div>
+        <br />
+        <br />
+        <input type="text" id="lat" />
+        <input type="text" id="lon" />
+    </div>
+    @*<div id='conteneur'>
+
+        <img class='image-de-dessus' src="~/images/giphy (3).gif" />
+    </div>
+    <div id='conteneur1'>
+
+        <img class='image-de-dessus' src="~/images/giphy (2).gif" />
+    </div>*@
+
+    <!--
+        Table contains all the data from the gettask Json Result
+        Start Date   End Date   Time Spent
+        Date1        Date2       5 heures
+        .....       .....       ......
+        .....       .....       .....
+        .....       NULL        NULL
+        IF END DATE == NULL => Button = STOP TIMER ====> TASK IS CURRENT
+        IF NO ROW CONTAINS NULL END DATE ==> BUTTON = START TIMER ======> NO CURRENT TASK
+
+        -->
+    @*<input type="date" />*@
+    @*<table>
+            <tr>
+                <td title="@Model.listProject"> @Html.DropDownList("--Select--", Model.listProject)   </td>
+            </tr>
+        </table>*@
+    @section scripts{
+        <script language='JavaScript'>
+            s = 00;
+            m = '0' + 0;
+            h = '0' + 0;
+            j = 0;
+            ss = false;
+            window.status = "Chrono " + j + " jour(s) et " + h + ' : ' + m + ' : ' + s;
+            function Chrono() {
+                if (m == 0) { m = '00' }
+                if (h == 0) { h = '00' }
+                if (s < 10) { s = '0' + s; }
+                window.status = "Chrono " + j + " jour(s) et " + h + ' : ' + m + ' : ' + s;
+                document.formu.heure.value = j + " jour(s) et " + h + ' : ' + m + ' : ' + s;
+                s++;
+                if (h == 24) { h = '0' + 0; j++; }
+                if (s == 60) { s = 0; m++; if (m < 10) { m = '0' + m; } }
+                if (m == 60) { m = '0' + 0; h++; if (h < 10) { h = '0' + h; } }
+                chrono = window.setTimeout("Chrono();", 1000);
+                
+            }
+            $("#startStopBtn").click(function () {
+                if (document.getElementById('startStopBtn').value == 'Stop') {
+                    $.ajax({
+                        type: 'Post',
+                        url: '@Url.Action("get","Developper")',
+                        data: { tacheId: $("#Tache").val() },
+                        success: function (data) {
+
+                        }
+                    })
+                }
+                else {
+                     $.ajax({
+                        type: 'Post',
+                        url: '@Url.Action("set","Developper")',
+                        data: {},
+                        success: function (data) {
+
+                        }
+                    })
+                }
+
+
+                        })
+            function startStop() {
+
+                if (!ss) {
+                    ss = !ss;
+                    document.getElementById('startStopBtn').style.background = 'red';
+                    document.getElementById('heure').style.backgroundColor = 'red';
+                    document.getElementById('green').style.color = 'red';
+                    document.getElementById('div').style.color = 'red';
+                    document.getElementById('div1').style.color = 'red';
+                    document.getElementById('startStopBtn').value = 'Stop';
+                    Chrono();
+
+
+
+
+
+
+                }
+                else {
+                    ss = !ss;
+                    document.getElementById('startStopBtn').style.background = 'green';
+                    document.getElementById('heure').style.backgroundColor = 'green';
+                    document.getElementById('green').style.color = 'green';
+                    document.getElementById('div').style.color = 'green';
+                    document.getElementById('div1').style.color = 'green';
+                    document.getElementById('startStopBtn').value = 'Start';
+                    window.clearTimeout(chrono);
+                }
+            }
+            //$("#dropdownTask").change(function () {
+            //    //json REquest
+            //    //SuCCESS : function(Data) => Data[Data.length].EndDate  IS null
+            //})
+
+            $(document).ready(function () {
+                $("#div1").hide();
+                
+                $("#Project").change(function () {
+                    $.ajax({
+                        type: 'Post',
+                        url: '@Url.Action("GetTache")',
+                        data: { ProjectId: $("#Project").val() },
+                        success: function (data) {
+                            $("#Tache").empty();
+
+                            $.each(data, function (i, Tache) {
+                                $("#Tache").append('<option value="' + Tache.Value + '">' + Tache.Text + '</option>');
+                                $("#div1").show();
+                               
+
+                            })
+                        }
+                    })
+                })
+            })
+            $(function () {
+                navigator.geolocation.getCurrentPosition(showposition, positionerror);
+                function showposition(position) {
+                    var coordinates = position.coords;
+                    $('#lat').html(location.c)
+                    $('#lon').val(coordinates.longitude);
+                    
+
+
+                }
+                function positionerror() {
+                    alert("oops error : " + position.code);
+                }
+            });
+
+            
+
+        </script>
+    }
+
+
+</body>
+</html>
+

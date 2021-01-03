@@ -1,0 +1,129 @@
+﻿@using System.Data
+@using System.Data.SqlClient
+@model ihebsalimprojet.Models.Gestion_Utilisateurs
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Suivi Horaire</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/bootstrap")
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+    <link href="~/Content/gif1.css" rel="stylesheet" />
+</head>
+<body>
+    @Html.Partial("SideBar")
+
+    <form method="post" name="Display">
+        <h2>Suivi Horaire</h2>
+        @{
+            var data = ViewBag.message;
+        }
+
+        <label>filter by date:</label><input type="date" id="temp" name="search" style="background-color:transparent;" />
+        <input type="submit" name="submit" value="Search" action="submit" onclick="onok()" style="background-color:transparent;" />
+
+        <br />
+        @{
+            if (Model.temp.Count > 0)
+            {
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">username</th>
+                            <th scope="col">DatePointageOn</th>
+                            <th scope="col">DatePointageOff</th>
+                            <th scope="col">Difference</th>
+                        </tr>
+                    </thead>
+
+
+                    @foreach (var item in Model.temp)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelitem => item.ID)</td>
+                            <td>@Html.DisplayFor(modelitem => item.username)</td>
+                            <td>@Html.DisplayFor(modelitem => item.datepointage)</td>
+
+                            @if (item.datepointageoff == DateTime.MinValue)
+                            {
+                                <td style="color:red;">datepointageoff not added</td>
+                            }
+                            else
+                            {
+                                <td>@Html.DisplayFor(modelitem => item.datepointageoff)</td>
+                            }
+                            <td>@Html.DisplayFor(modelitem => item.datediff)</td>
+                            <td>@Html.ActionLink("Edit ", "Editdate", new { ID = item.ID })</td>
+                        </tr>
+                    }
+
+
+
+
+
+
+                    <tr>
+                        <td></td>
+                        <td>
+                        </td>
+                        <td style="text-align:right;display:block">
+                            @{
+                                double a = Model.temp.Sum(i => i.datediff.TotalSeconds);
+                                double x = Model.temp.Sum(i => (i.datediff.TotalHours));
+                                double y = Model.temp.Sum(i => ((i.datediff.TotalSeconds - (Math.Truncate(i.datediff.TotalHours) * 3600)) / 60));
+                                double z = Model.temp.Sum(i => a - (Math.Truncate(x) + Math.Truncate(y)));
+
+                                if (Model.temp.Sum(i => i.datediff.TotalSeconds) < 60)
+                                {
+
+
+                                    <label>@Math.Truncate(x) h @Math.Truncate(y) m @Math.Truncate(a - ((3600 * Math.Truncate(x)) + (60 * Math.Truncate(y)))) s</label>
+                                }
+                                else if (Model.temp.Sum(i => i.datediff.TotalSeconds) > 60 && Model.temp.Sum(i => i.datediff.TotalSeconds) < 3600)
+                                {
+                                    <label>@Math.Truncate(x) h @Math.Truncate(y) m @Math.Truncate(a - ((3600 * Math.Truncate(x)) + (60 * Math.Truncate(y)))) s</label>
+                                }
+                                else
+                                {
+                                    <label>@Math.Truncate(x) h @Math.Truncate(y) m @Math.Truncate(a - ((3600 * Math.Truncate(x)) + (60 * Math.Truncate(y)))) s</label>
+
+                                }
+                            }
+                        </td>
+                    </tr>
+
+
+
+                </table>
+
+
+
+
+                <br />
+            }
+            else
+            {
+                        <h4>No records found</h4>
+            }
+        }
+
+    </form>
+    @section scripts{
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script language="javascript">
+            
+
+        </script>
+        
+        
+        
+        }
+</body>
+</html>

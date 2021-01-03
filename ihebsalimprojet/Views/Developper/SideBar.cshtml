@@ -1,0 +1,25 @@
+﻿<link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
+<link href="~/Content/Admin.css" rel="stylesheet" />
+<div class="navbar navbar-inverse navbar-fixed-top" style="background-color:transparent;border:0;text-align:center;">
+    <div class="container">
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink(" Suivi horaire", "Index", new { controller = "Developper" }, new { @class = "fas fa-user-clock" , @style="color:black"})</li>
+                <li>@Html.ActionLink(" Gérer les Projets", "GetProjects", new { controller = "Developper" }, new { @class = "fas fa-tasks", @style = "color:black" })</li>
+                
+                
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> @Html.ActionLink(" Logout", "Logout", new { controller = "Authentification" }, new { @class = "fas fa-sign-out-alt", @style = "color:black" })</li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+        
+
+</script>

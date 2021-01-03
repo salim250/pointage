@@ -1,0 +1,93 @@
+﻿ 
+@model ihebsalimprojet.Models.GestionProjet
+@{
+    ViewBag.Title = "create";
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Gestion Projet</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/bootstrap")
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+    <link href="~/Content/gif1.css" rel="stylesheet" />
+   
+    <script>
+        
+
+        function fillCheck() {
+
+            $('.UsersCheck').each(function () {
+                if ($(this).is(":checked")) {
+
+                    $('#SelectedUsers').val($('#SelectedUsers').val() + ',' + $(this).attr('title'));
+                }
+            });
+            $('.Projects').each(function () {
+
+
+                $('#Project').val($('#Project').val() + ',' + $(this).attr('title'));
+
+            });
+
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    @Html.Partial("SideBar")
+    @using (Html.BeginForm("createUsers", "GestionProjet", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return fillCheck()" }))
+    {
+        <input type="hidden" id="SelectedUsers" name="SelectedUsers" />
+        <input type="hidden" id="Project" name="Project" />
+        <table style="width: 500px;" border="1">
+            <tr>
+                <th scope="col">Users</th>
+                <th scope="col">Projects</th>
+            </tr>
+
+            <tr>
+                <td>
+                    @for (int i = 0; i < Model.Users.Count; i++)
+                    {
+
+
+                        <!--<input type="checkbox" name="checkboc" value="@Model.Users[i].UserName" checked="( @Model.Users[i].IsChecked ?? "checked" )" />-->
+                        // @Html.CheckBoxFor(model => model.Users[i].IsChecked, htmlAttributes: new { @class = "UsersCheck", @title = Model.Users[i].Id, @checked = true })
+                        @Html.CheckBox(Model.Users[i].UserName, htmlAttributes: new { @class = "UsersCheck", @title = Model.Users[i].Id, @checked = Model.Users[i].IsChecked })
+                        <label for="@Model.Users[i].UserName">@Model.Users[i].UserName</label><br />
+                        @Html.HiddenFor(model => model.Users[i].Id)
+                        @Html.HiddenFor(model => model.Users[i].UserName)
+
+
+
+                    }
+
+                </td>
+                <td>
+                    @for (int i = 0; i < Model.Projects.Count; i++)
+                    {
+
+
+
+                       
+                        <label class="Projects" title="@Model.Projects[i].Id">@Model.Projects[i].ProjectName</label><br />
+                        @Html.HiddenFor(model => model.Projects[i].Id)
+                        @Html.HiddenFor(model => model.Projects[i].ProjectName)
+
+
+
+                    }
+                </td>
+                
+
+            </tr>
+
+
+        </table>
+        <input type="submit" value="save" />
+    }
+</body>
+</html>
+

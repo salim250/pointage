@@ -1,0 +1,22 @@
+﻿body {
+	background-color: white;
+	color: black;
+}
+
+
+.dark-mode {
+	background-color: black;
+	color: white;
+}
+.dark-mode input[type=text]{
+	background-color: black;
+}
+	.dark-mode input[type=date] {
+		background-color: black;
+		
+	}
+	.dark-mode input[type=submit] {
+		background-color: white;
+		color:black;
+	}
+

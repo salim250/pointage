@@ -1,0 +1,28 @@
+﻿<link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+<link href="~/Content/Admin.css" rel="stylesheet" />
+<div class="navbar navbar-inverse navbar-fixed-top" style="        background-color: rgba(255,255,255,0.5);
+        border: 0;
+        text-align: center;">
+    <div class="container" >
+
+        <div class="navbar-collapse collapse" >
+            <ul class="nav navbar-nav"  >
+                <li> @Html.ActionLink(" Gestion d'utilisateur", "Index", new { controller = "Gestion_Utilisateurs" }, new { @class = "fas fa-tasks", @style = "color:black" })</li>
+                <li>@Html.ActionLink(" Gestion de projet", "Index", new { controller = "GestionProjet" }, new { @class = "fas fa-users", @style = "color:black" })</li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> @Html.ActionLink(" Logout", "Logout", new { controller = "Authentification" }, new { @class = "fas fa-sign-out-alt", @style = "color:black" })</li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div style="cursor:move;"><button onclick="myFunction()" style="background-color:transparent;">Dark Mode</button></div>
+
+<script>
+    function myFunction() {
+        var element = document.body;
+        element.classList.toggle("dark-mode");
+    }
+</script>

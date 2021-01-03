@@ -1,0 +1,60 @@
+﻿@using System.Data
+@using System.Data.SqlClient
+@model System.Data.DataTable
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Gestion Projet</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/bootstrap")
+    <link href="~/Content/gif1.css" rel="stylesheet" />
+
+</head>
+<body>
+    @Html.Partial("SideBar")
+
+    <form method="post" name="Display">
+        <h2>Home</h2>
+        @Html.ActionLink("Add New Project", "create")
+        <br />
+        @{
+            if (Model.Rows.Count > 0)
+            {
+                <table class="table table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                        </tr>
+                    </thead>
+                    @foreach (DataRow dr in Model.Rows)
+                    {
+                <tr>
+                    <td>@dr["ProjectId"].ToString()  </td>
+                    <td>@dr["ProjectName"].ToString()  </td>
+                    <td>@Html.ActionLink("Edit ", "Edit", new { ID = dr["ProjectId"].ToString() })</td>
+                    <td>@Html.ActionLink("| Delete", "Delete", new { ID = dr["ProjectId"].ToString() })</td>
+                    <td>@Html.ActionLink("| Ajouter Users", "createUsers", new { ID = dr["ProjectId"].ToString() })</td>
+                </tr>
+
+                    }
+
+                </table>
+                <br />
+            }
+            else
+            {
+                <span> No records found!!</span>
+            }
+        }
+
+    </form>
+    @Html.ActionLink("Consulter les Projets des users", "GetAllProjectUser", new { controller = "GestionProjet" })
+</body>
+</html>

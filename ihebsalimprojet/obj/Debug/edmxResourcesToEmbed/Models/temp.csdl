@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ErnstModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="temp">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="datepointage" Type="DateTime" Precision="3" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TacheId" Type="Int32" />
+    <Property Name="datepointageoff" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="ErnstEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="temp" EntityType="Self.temp" />
+    <FunctionImport Name="gettemp" ReturnType="Collection(ErnstModel.gettemp_Result)">
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="getalltemp" EntitySet="temp" ReturnType="Collection(ErnstModel.temp)">
+      <Parameter Name="date" Mode="In" Type="DateTime" />
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="gettemp_Result">
+    <Property Type="String" Name="username" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="datepointage" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="datepointageoff" Nullable="true" Precision="23" />
+  </ComplexType>
+</Schema>

@@ -1,0 +1,39 @@
+﻿
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Insert</title>
+    @Styles.Render("~/Styles/style1.css")
+    @Styles.Render("~/Content/bootstrap.css")
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+    <link href="~/Content/gif1.css" rel="stylesheet" />
+</head>
+<body>
+    @Html.Partial("SideBar")
+    <section class="w3l-simple-contact-form1">
+        <div class="contact-form section-gap">
+            <div class="wrapper">
+                <div class="contact-form" style="max-width: 450px; margin: 0 auto;">
+                    <div class="form-mid">
+                        <form method="post" id="frmDetail" action="@Url.Action("InsertTache")">
+                            <div class="field">
+                                <input type="text" class="form-control" name="tachename" id="w3lName" placeholder="Tache">
+                            </div>
+                            <input type="hidden" name="hdnID" value="@Model.Rows[0]["ProjectId"]">
+                            <div>
+                                <input type="submit" value="Submit" class="btn btn-info" name="action" />
+                                <input type="submit" value="Cancel" class="btn btn-info" name="action" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+
+

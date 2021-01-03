@@ -1,0 +1,49 @@
+﻿@using System.Data
+@using System.Data.SqlClient
+@model ihebsalimprojet.Models.Gestion_Utilisateurs
+
+<html>
+<head>
+    <script type="text/javascript">
+
+    </script>
+    @Styles.Render("~/Styles/style1.css")
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+    
+</head>
+<body>
+    @Html.Partial("SideBar")
+    <section class="w3l-simple-contact-form1">
+        <div class="contact-form section-gap">
+            <div class="wrapper">
+                <div class="contact-form" style="max-width: 450px; margin: 0 auto;">
+                    <div class="form-mid">
+                        <form method="post" id="frmDetail" action="@Url.Action("Updatedate")">
+                            @foreach (var item in Model.temp)
+                            {
+                                <div class="field">
+                                    <input type="text" class="form-control" name="datepointage" id="w3lName" value="@item.datepointage" placeholder="yyyy-mm-dd hh:mm:ss">
+                                </div>
+                                <div class="field">
+                                    <input type="text" class="form-control" name="datepointageoff" value="@item.datepointageoff" id="w3lSender" placeholder="yyyy-mm-dd hh:mm:ss">
+                                </div>
+
+                                <input type="hidden" name="hdnID" value="@item.ID">
+                                <input type="hidden" name="username1" value="@item.username">
+
+
+
+                            <div>
+                                <input type="submit" value="Submit" class="btn btn-info" name="action"  />
+                                <input type="submit" value="Cancel" class="btn btn-info" name="action" />
+                            </div>
+                            }
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
